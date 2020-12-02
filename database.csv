@@ -1483,7 +1483,6 @@ locality,home_type,subtype,price,type_of_sale,room,area,equipped,furnished,open_
 ,Maison,,189000,,,,,0,,,,,, 3.22 ares,,0,
  Sint-Rochusstraat 55,Appartement,,189000,,,,,0,,,,,,,,0,
  rue de la carpe  9-11,Maison,,189000,,,,,0,,,,,,,,0,
-,242,,àIxelles,,,,,,,,,,,,,,
  Rue Saint Roch 43,Maison,,189000,,,,,0,,,,,, 2.6 ares,,0,
  Koninginnelaan 1,Appartement,,189000,,1,,,0,,,,,,,,0,
  Rue de la Cahuaire A.1.0.2.,Appartement,,189000,,,,,0,,,,1, 1.69 are,,,0,
@@ -2374,7 +2373,6 @@ locality,home_type,subtype,price,type_of_sale,room,area,equipped,furnished,open_
  Rue de Magnée 81,Appartement,,249000,,,,,0,,,,1, 0.77 are, 0.89 are,,0, Bien neuf
  Rue Du Gonhy 61,Appartement,,249000,,1,,,0,,,,,,,,0, Bien neuf
 ,Maison,,249000,,,,,,,,,,, 4 ares,,0,
-,504,,GatewayTime-out,,,,,,,,,,,,,,
  Abelenhof 3,Appartement,,249000,,,,,0,,,,,,,,0,
  IJzerenveld 160,Maison,,249000,,,,,0,,,,,,,,0,
  Nijverheidstraat 49,Maison,,249000,,,,,,,,,,,,,0,
@@ -3653,7 +3651,6 @@ locality,home_type,subtype,price,type_of_sale,room,area,equipped,furnished,open_
  Zeedijk  295,Appartement,,350000,,,,,0,,,,,,,,0,
  Zeedijk 46,Appartement,,350000,,,,,0,,,,,,,,0,
  Leopoldlaan 89 / 0703,Appartement,,350000,,,,,0,,,,,,,,0,
-,5,,àHerent,,,,,,,,,,,,,,
  EICHEMSTRAAT 76,Maison,,350000,,,,,0,,,,,, 5.5 ares,,0,
  Zeelaan 158,Penthouse,,350000,,,,,0,,,,,, 94.97 ares,,0, Besoin de travaux
  Rue de la Meunerie 35a,Maison,,350000,,,,,0,,,,,, 3.93 ares,,0,
