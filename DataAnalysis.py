@@ -18,7 +18,7 @@ class Plot:
     def plot_price_room(self, df):
         """To create a plot with axe x number of room and y price"""
 
-        scatter = sns.lmplot(x= 'room', y= 'price', data= df, hue= 'home_type', fit_reg=False)
+        scatter = sns.lmplot(x= 'room', y= 'price', data= df, hue= 'home_type',col= 'home_type', fit_reg=False)
         scatter.set(title='Correlation between prices and rooms')
 
     def plot_price_area(self, df):
@@ -26,29 +26,29 @@ class Plot:
         scatter = sns.lmplot(x= 'surface_of_land_area', y= 'price', data= df, hue= 'garden', fit_reg=False)
         scatter.set(title='Correlation between prices and area')
     
-    def plot_home_type_price(self, df):
+    def plot_home_type_by_quantity(self, df):
 
-        scatter = sns.lmplot(x= 'surface_of_land_area', y= 'price', data= df, hue= 'home_type', fit_reg=False)
-        scatter.set(title='Correlation between prices and area')
+        #scatter = sns.lmplot(x= 'surface_of_land_area', y= 'price', data= df, hue= 'home_type',col= 'home_type', fit_reg=False)
+        #scatter.set(title='Correlation between prices and area')
+        df['quantity'] = 1
+        test = df.groupby('home_type')['quantity'].sum()
+        test.plot(kind="bar")
+        #g = sns.FacetGrid(df, col="home_type", hue= 'home_type')
+        #g.map(plt.scatter, "surface_of_land_area", 'price')
+        #g.add_legend()
 
-    def plot_locality_price(self, df): 'A changer car 10000 valeurs'
-        pkmn_type_colors = ['#78C850',  # Grass
-                    '#F08030',  # Fire
-                    '#6890F0',  # Water
-                    '#A8B820',  # Bug
-                    '#A8A878',  # Normal
-                    '#A040A0',  # Poison
-                    '#F8D030',  # Electric
-                    '#E0C068',  # Ground
-                    '#EE99AC',  # Fairy
-                    '#C03028',  # Fighting
-                    '#F85888',  # Psychic
-                    '#B8A038',  # Rock
-                    '#705898',  # Ghost
-                    '#98D8D8',  # Ice
-                    '#7038F8',  # Dragon
-                   ]
-        sns.swarmplot(x='locality', y='price', data=df, palette=pkmn_type_colors)
+        plt.show()
+
+    def plot_locality_price(self, df): 
+
+        df = df[(df['home_type'] == 'Appartement')]
+        df = df[df['price'] > 1]
+        df = df[(df['surface_of_land_area'] > 0) & (df['surface_of_land_area'] < 15000)]
+        scatter = sns.factorplot(x= 'price', y= 'surface_of_land_area', data= df, fit_reg=False, log=True)
+        #scatter.set_yscale('log')
+        scatter.set(title='Correlation between prices and rooms')
+        plt.show()
+        
 
 df = Cleaning().import_from_csv()
 df = Cleaning().check_space(df)
@@ -58,8 +58,9 @@ df = Cleaning().remplace_NaN_value(df)
 
 AnalyseData().how_many_row_and_columns(df)
 AnalyseData().describe_of_values(df)
-#Plot().plot_home_type_price(df)
+#Plot().plot_home_type_by_quantity(df)
 #Plot().plot_price_room(df)
 #Plot().plot_price_area(df)
 Plot().plot_locality_price(df)
-plt.show()
+#plt.ylim(0, None)
+#plt.xlim(0, None)

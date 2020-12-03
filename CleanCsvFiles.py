@@ -53,6 +53,11 @@ class Cleaning:
         df['terrace_area'] = df['terrace_area'].astype(float)
         df['facades'] = df['facades'].astype(float)
         df['swimming_pool'] = df['swimming_pool'].astype(float)
+
+        df = df.reset_index(drop= True)
+
+        df.loc[0:4502,'surface_of_land_area'] = df.loc[0:4502,'surface_of_land_area']*100
+        df.loc[0:4502,'garden_area'] = df.loc[0:4502,'garden_area']*100
         return df
     
     def clean_errors(self, df):
