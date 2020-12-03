@@ -99,6 +99,29 @@ class Plot:
         plt.title('Price distribution')
         plt.show()
         
+    def state_of_building(self,df):
+        type_colors = ['#78C850',  # Grass
+                    '#F08030',  # Fire
+                    '#6890F0',  # Water
+                    '#A8B820',  # Bug
+                    '#A8A878',  # Normal
+                    '#A040A0',  # Poison
+                    '#F8D030',  # Electric
+                    '#E0C068',  # Ground
+                    '#EE99AC',  # Fairy
+                    '#C03028',  # Fighting
+                    '#F85888',  # Psychic
+                    '#B8A038',  # Rock
+                    '#705898',  # Ghost
+                    '#98D8D8',  # Ice
+                    '#7038F8',  # Dragon
+                   ]
+
+        df=df[df['state_of_building'] != '0']
+        sns.countplot(x='state_of_building', data=df, palette=type_colors)
+        plt.xticks(rotation=-45);
+        plt.show()
+        
 df = Cleaning().import_from_csv()
 df = Cleaning().check_space(df)
 df = Cleaning().delete_duplicate(df)
@@ -114,3 +137,4 @@ AnalyseData().describe_of_values(df)
 #Plot().home_type_surface_dispertion(df)
 #Plot().distribution_of_surface(df)
 #Plot().distribution_of_price(df)
+#Plot().state_of_building(df)
