@@ -1,7 +1,9 @@
 from CleanCsvFiles import Cleaning
-
+from matplotlib.colors import LogNorm
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
+
 
 class AnalyseData:
     def how_many_row_and_columns(self, df):
@@ -20,7 +22,7 @@ class Plot:
 
         df['quantity'] = 1
         test = df.groupby('home_type')['quantity'].sum()
-        test.sort_values['quantity']
+        test.sort_values()
         print(test)
         test.plot(kind="bar")
 
@@ -36,9 +38,13 @@ class Plot:
         plt.xscale('log')
         plt.yscale('log')
         plt.xlabel('Price of properties')
-        plt.ylabel('Surface of properties')
+        # plt.ylabel('Surface of properties')
         plt.show()
-        
+    def plot_price_room(self,df):
+        df = df[(df["price"] > 1) & (df["room"] > 1)]
+        cor = df.corr()
+        ax = sns.heatmap(cor, center=0)
+        plt.show()
 
 df = Cleaning().import_from_csv()
 df = Cleaning().check_space(df)
@@ -48,5 +54,7 @@ df = Cleaning().remplace_NaN_value(df)
 
 AnalyseData().how_many_row_and_columns(df)
 AnalyseData().describe_of_values(df)
-Plot().plot_home_type_by_quantity(df)
-#Plot().plot_surface_of_type_price(df)
+# Plot().plot_home_type_by_quantity(df)
+# Plot().plot_surface_of_type_price(df)
+Plot().plot_price_room(df)
+plt.show()

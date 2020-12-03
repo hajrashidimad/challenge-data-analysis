@@ -7,7 +7,7 @@ class Cleaning:
     def import_from_csv(self):
         """Read csv file and return a DataFrame"""
 
-        df = pd.read_csv('/Users/ebu/Desktop/becode_projects/Thomas/challenge-data-analysis/challenge-data-analysis/database.csv')
+        df = pd.read_csv('database.csv')
         df = df.astype(object)
         return df
 
@@ -25,6 +25,7 @@ class Cleaning:
     def delete_duplicate(self, df):
         """Delete all duplicated row"""
         df = df.drop_duplicates()
+        print(df.shape)
         return df
     
     def remplace_NaN_value(self, df):
@@ -68,3 +69,10 @@ class Cleaning:
         if df.shape[1] == 18:
             print('csv file has correct dimension')
         return df
+
+
+df = Cleaning().import_from_csv()
+df = Cleaning().check_space(df)
+df = Cleaning().delete_duplicate(df)
+df = Cleaning().remplace_NaN_value(df)
+print(df)
