@@ -78,7 +78,7 @@ class Plot:
         second = (df['surface_of_land_area'] < (df['surface_of_land_area'].mean())-500).sum()
         third = ((df['surface_of_land_area'] <= (df['surface_of_land_area'].mean())+500) & 
                     (df['surface_of_land_area'] <= (df['surface_of_land_area'].mean())+500)).sum()
-        plt.pie([first, second, third],  labels=['Bigger then mean', 'Lesser then mean', 'Mean'], colors=['red','blue', 'green'], 
+        plt.pie([first, second, third],  labels=['Bigger than mean', 'Lesser than mean', 'Mean'], colors=['red','blue', 'green'], 
                 shadow=False, autopct='%1.1f%%', startangle=100)
         plt.axis('equal')
         plt.title('Surface distribution')
@@ -93,7 +93,7 @@ class Plot:
         second = (df['price'] < (df['price'].mean())-100000).sum()
         third = ((df['price'] <= (df['price'].mean())+100000) & 
                     (df['price'] <= (df['price'].mean())+100000)).sum()
-        plt.pie([first, second, third],  labels=['Bigger then mean', 'Lesser then mean', 'Mean'], colors=['red','blue', 'green'], 
+        plt.pie([first, second, third],  labels=['Bigger than mean', 'Lesser than mean', 'Mean'], colors=['red','blue', 'green'], 
                 shadow=False, autopct='%1.1f%%', startangle=100)
         plt.axis('equal')
         plt.title('Price distribution')
@@ -122,7 +122,7 @@ class Plot:
         plt.xticks(rotation=-45)
         plt.show()
     
-    def city_price_correlation(self, df):
+    def city_dispertion(self, df):
         """We had a problem with our csv file, first half of locality was only street name so
         we couldn't find whitch city it was, so we decided to look only to the second half"""
 
@@ -146,10 +146,10 @@ AnalyseData().how_many_row_and_columns(df)
 AnalyseData().describe_of_values(df)
 #Plot().plot_home_type_by_quantity(df)
 #Plot().plot_surface_of_type_price(df)
-Plot().proportions_of_home_type(df)
+#Plot().proportions_of_home_type(df)
 #Plot().home_type_price_dispertion(df)
 #Plot().home_type_surface_dispertion(df)
 #Plot().distribution_of_surface(df)
 #Plot().distribution_of_price(df)
 #Plot().state_of_building(df)
-#Plot().city_price_correlation(df)
+Plot().city_dispertion(df)
