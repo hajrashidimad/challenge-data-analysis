@@ -13,6 +13,18 @@ class AnalyseData:
         """Look at variable in target"""
 
         print(df.describe())
+    
+    def sorted_by_city_in_wallonia(self, df):
+        df = df[(df['price'] > 1) & (df['price'] < 800000)]
+        df = df[(df['locality'] == 'Nivelles') | (df['locality'] == 'Saint-Nicolas') | (df['locality'] == 'Arlon') | 
+                (df['locality'] == 'Tournai') | (df['locality'] == 'Namur') | (df['locality'] == 'Virton') | 
+                (df['locality'] == 'Marche-en-Famenne') | (df['locality'] == 'Verviers') | (df['locality'] == 'Soignies') | 
+                (df['locality'] == 'Bastognes') | (df['locality'] == 'Ath') | (df['locality'] == 'Waremme') | 
+                (df['locality'] == 'Liège') | (df['locality'] == 'Huy') | (df['locality'] == 'Thuin') | 
+                (df['locality'] == 'Dinant') | (df['locality'] == 'Mouscron') | (df['locality'] == 'Neufchâteau') |
+                (df['locality'] == 'Philippeville') | (df['locality'] == 'Mons') | (df['locality'] == 'Charleroi')]
+
+        return df
 
 class Plot: 
     
@@ -127,6 +139,7 @@ class Plot:
         we couldn't find whitch city it was, so we decided to look only to the second half"""
 
         df_city = df.loc[4503:]
+        df = df[(df['price'] > 1) & (df['price'] < 800000)]
         df_city['quantity'] = 1
         test = df_city.groupby(['locality']).agg({'quantity':sum})
         res = test.apply(lambda x: x.sort_values(ascending=False))
@@ -137,12 +150,45 @@ class Plot:
     def mean_price_by_city(self, df):
 
         df_city = df.loc[4503:]
+        df = df[(df['price'] > 1) & (df['price'] < 800000)]
         test = df_city.groupby(['locality']).agg({'price':['mean']})
         res = test.apply(lambda x: x.sort_values(ascending=False))
         res.plot(kind="bar")
 
-        plt.show()        
+        plt.show()
+
+    def most_and_less_expensive_municipality_wallonia(self, df):
+
+        df = AnalyseData().sorted_by_city_in_wallonia(df)
+        test = df.groupby(['locality']).agg({'price':['mean']})
+        res = test.apply(lambda x: x.sort_values(ascending=False))
         
+        res.plot(kind="bar")
+
+        plt.show()
+    
+    def median_price_municipality_wall(self, df):
+        
+        df = AnalyseData().sorted_by_city_in_wallonia(df)
+        test = df.groupby(['locality']).agg({'price':['median']})
+        res = test.apply(lambda x: x.sort_values(ascending=False))
+        
+        res.plot(kind="bar")
+
+        plt.show()
+    
+    def price_per_square_metre_municipality_wall(self, df):
+
+        df = AnalyseData().sorted_by_city_in_wallonia(df)
+        df = df[(df['surface_of_land_area'] > 1)]
+        df['square_meter'] = df['price']/df['surface_of_land_area']
+        print(df.head())
+        test = df.groupby(['locality']).agg({'square_meter':['mean']})
+        res = test.apply(lambda x: x.sort_values(ascending=False))
+        
+        res.plot(kind="bar")
+
+        plt.show()
         
 df = Cleaning().import_from_csv()
 df = Cleaning().check_space(df)
@@ -162,4 +208,7 @@ AnalyseData().describe_of_values(df)
 #Plot().distribution_of_price(df)
 #Plot().state_of_building(df)
 #Plot().city_dispertion(df)
-Plot().mean_price_by_city(df)
+#Plot().mean_price_by_city(df)
+#Plot().most_and_less_expensive_municipality_wallonia(df)
+#Plot().median_price_municipality_wall(df)
+Plot().price_per_square_metre_municipality_wall(df)
