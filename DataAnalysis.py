@@ -27,7 +27,7 @@ class Plot:
 
     def plot_surface_of_type_price(self, df): 
 
-        df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'HOUSE') | (df['home_type'] == 'Maison')]
+        df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'Villa') | (df['home_type'] == 'Maison')]
         df = df[(df['price'] > 1) & (df['price'] < 1000000)]
         df = df[(df['surface_of_land_area'] > 0)]
         scatter = sns.lmplot(x= 'price', y= 'surface_of_land_area', data= df, fit_reg=False, col='home_type',
@@ -43,8 +43,8 @@ class Plot:
 
         first = (df['home_type']=='Appartement').sum()
         second = (df['home_type']=='Maison').sum()
-        third = (df['home_type']=='HOUSE').sum()
-        plt.pie([first, second, third],  labels=['Appartement', 'Maison', 'HOUSE'], colors=['red','blue', 'green'], 
+        third = (df['home_type']=='Villa').sum()
+        plt.pie([first, second, third],  labels=['Appartement', 'Maison', 'Villa'], colors=['red','blue', 'green'], 
                 shadow=False, autopct='%1.1f%%', startangle=100)
         plt.axis('equal')
         plt.title('Home type proportions')
@@ -52,7 +52,7 @@ class Plot:
     
     def home_type_price_dispertion(self, df):
         
-        df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'HOUSE') | (df['home_type'] == 'Maison')]
+        df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'Villa') | (df['home_type'] == 'Maison')]
         df = df[(df['price'] > 1) & (df['price'] < 800000)]
         sns.set_style('whitegrid')
         # Violin plot
@@ -61,7 +61,7 @@ class Plot:
     
     def home_type_surface_dispertion(self, df):
 
-        df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'HOUSE') | (df['home_type'] == 'Maison')]
+        df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'Villa') | (df['home_type'] == 'Maison')]
         df = df[df['surface_of_land_area'] > 0]
         df = df[(df['surface_of_land_area'] > 1) & (df['surface_of_land_area'] < 2000)]
         sns.set_style('whitegrid')
@@ -72,7 +72,7 @@ class Plot:
     def distribution_of_surface(self, df):
 
         print(df['surface_of_land_area'].mean())
-        df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'HOUSE') | (df['home_type'] == 'Maison')]
+        df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'Villa') | (df['home_type'] == 'Maison')]
         df = df[df['surface_of_land_area'] > 0]
         first = (df['surface_of_land_area'] > (df['surface_of_land_area'].mean())+500).sum()
         second = (df['surface_of_land_area'] < (df['surface_of_land_area'].mean())-500).sum()
@@ -87,7 +87,7 @@ class Plot:
     def distribution_of_price(self, df):
 
         print(df['price'].mean())
-        df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'HOUSE') | (df['home_type'] == 'Maison')]
+        df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'Villa') | (df['home_type'] == 'Maison')]
         df = df[df['price'] > 0]
         first = (df['price'] > (df['price'].mean())+100000).sum()
         second = (df['price'] < (df['price'].mean())-100000).sum()
@@ -100,41 +100,56 @@ class Plot:
         plt.show()
         
     def state_of_building(self,df):
-        type_colors = ['#78C850',  # Grass
-                    '#F08030',  # Fire
-                    '#6890F0',  # Water
-                    '#A8B820',  # Bug
-                    '#A8A878',  # Normal
-                    '#A040A0',  # Poison
-                    '#F8D030',  # Electric
-                    '#E0C068',  # Ground
-                    '#EE99AC',  # Fairy
-                    '#C03028',  # Fighting
-                    '#F85888',  # Psychic
-                    '#B8A038',  # Rock
-                    '#705898',  # Ghost
-                    '#98D8D8',  # Ice
-                    '#7038F8',  # Dragon
+        type_colors = ['#78C850', 
+                    '#F08030',  
+                    '#6890F0',  
+                    '#A8B820',  
+                    '#A8A878',  
+                    '#A040A0', 
+                    '#F8D030',  
+                    '#E0C068',  
+                    '#EE99AC',  
+                    '#C03028',  
+                    '#F85888',  
+                    '#B8A038',  
+                    '#705898',  
+                    '#98D8D8',  
+                    '#7038F8',  
                    ]
 
         df=df[df['state_of_building'] != '0']
         sns.countplot(x='state_of_building', data=df, palette=type_colors)
-        plt.xticks(rotation=-45);
+        plt.xticks(rotation=-45)
         plt.show()
+    
+    def city_price_correlation(self, df):
+        """We had a problem with our csv file, first half of locality was only street name so
+        we couldn't find whitch city it was, so we decided to look only to the second half"""
+
+        df_city = df.loc[4503:]
+        df_city['quantity'] = 1
+        test = df_city.groupby(['locality']).agg({'quantity':sum})
+        res = test.apply(lambda x: x.sort_values(ascending=False))
+        res.plot(kind="bar")
+
+        plt.show()
+        
         
 df = Cleaning().import_from_csv()
 df = Cleaning().check_space(df)
 df = Cleaning().delete_duplicate(df)
 df = Cleaning().remplace_NaN_value(df)
 #df = Cleaning().clean_errors(df)
+df = Cleaning().change_HOUSE_to_Maison(df)
 
 AnalyseData().how_many_row_and_columns(df)
 AnalyseData().describe_of_values(df)
 #Plot().plot_home_type_by_quantity(df)
 #Plot().plot_surface_of_type_price(df)
-#Plot().proportions_of_home_type(df)
+Plot().proportions_of_home_type(df)
 #Plot().home_type_price_dispertion(df)
 #Plot().home_type_surface_dispertion(df)
 #Plot().distribution_of_surface(df)
 #Plot().distribution_of_price(df)
 #Plot().state_of_building(df)
+#Plot().city_price_correlation(df)
