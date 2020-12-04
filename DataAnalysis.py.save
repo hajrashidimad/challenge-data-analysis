@@ -1,8 +1,10 @@
+<<<<<<< HEAD
 from CleanCsvFiles import Cleaning
-from collections import Counter
+from matplotlib.colors import LogNorm
 import seaborn as sns
 import matplotlib.pyplot as plt
-from price_information import *
+import numpy as np
+
 
 class AnalyseData:
     def how_many_row_and_columns(self, df):
@@ -13,7 +15,60 @@ class AnalyseData:
     def describe_of_values(self, df):
         """Look at variable in target"""
 
-        # print(df.describe())
+        print(df.describe())
+
+class Plot: 
+    
+    def plot_home_type_by_quantity(self, df):
+
+        df['quantity'] = 1
+        test = df.groupby('home_type')['quantity'].sum()
+        test.sort_values()
+        print(test)
+        test.plot(kind="bar")
+
+        plt.show()
+
+    def plot_surface_of_type_price(self, df): 
+
+        df = df[(df['home_type'] == 'Appartement')]
+        df = df[df['price'] > 1]
+        df = df[(df['surface_of_land_area'] > 0)]
+        scatter = sns.lmplot(x= 'price', y= 'surface_of_land_area', data= df, fit_reg=False)
+        scatter.set(title='Correlation between prices and surface of appartement')
+        plt.xscale('log')
+        plt.yscale('log')
+        plt.xlabel('Price of properties')
+        # plt.ylabel('Surface of properties')
+        plt.show()
+    def plot_price_room(self,df):
+        df = df[(df["price"] > 1) & (df["room"] > 1)]
+        cor = df.corr()
+        ax = sns.heatmap(cor, center=0)
+        plt.show()
+
+df = Cleaning().import_from_csv()
+df = Cleaning().check_space(df)
+df = Cleaning().delete_duplicate(df)
+df = Cleaning().remplace_NaN_value(df)
+#df = Cleaning().clean_errors(df)
+
+AnalyseData().how_many_row_and_columns=======
+from CleanCsvFiles import Cleaning
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+class AnalyseData:
+    def how_many_row_and_columns(self, df):
+        """Print how many row and columns we have"""
+
+        print(df.shape)
+    
+    def describe_of_values(self, df):
+        """Look at variable in target"""
+
+        print(df.describe())
 
 class Plot: 
     
@@ -99,41 +154,7 @@ class Plot:
         plt.axis('equal')
         plt.title('Price distribution')
         plt.show()
-
-    def plot_price_room(self,df):
-        df = df[(df["price"] > 1) & (df["room"] > 1)]
-        cor = df.corr()
-        ax = sns.heatmap(cor, center=0)
-        plt.show()
-    
-    def plot_price_area(self, df):
-        df_city = df.loc[4503:]
-        df = df[(df["price"] > 0) & (df["facades"] > 1)]
-        corr = df.corr()
-        ax = sns.heatmap(corr)
-        try:
-            ax = sns.heatmap(df, annot=True, fmt="d")
-
-        except ValueError:
-            pass
-        plt.show()
-
-    def belguim_house_price(self,df):
-        df = df.loc[5152:]
-        expensive = []
-        cheap = []
-        number_of_house = Counter(df['locality']) # calculate the number of house on each municipalities
-        number_of_house = dict(number_of_house) # transfer dataframe to dic, to have keys and values
-        for city in number_of_house.keys():
-            city = df[(df["locality"] == f"{city}")]
-            if city["price"].mean() > 150000.0 :
-                expensive.append(city["locality"])
-            else:
-                cheap.append(city["locality"])
-        return print(expensive)
-
-
-
+        
 df = Cleaning().import_from_csv()
 df = Cleaning().check_space(df)
 df = Cleaning().delete_duplicate(df)
@@ -149,7 +170,4 @@ AnalyseData().describe_of_values(df)
 #Plot().home_type_surface_dispertion(df)
 #Plot().distribution_of_surface(df)
 #Plot().distribution_of_price(df)
-# Plot().plot_price_room(df)
-# Plot().plot_price_area(df)
-# Plot().locality_price(df)
-Plot().belguim_house_price(df)
+>>>>>>> 3e86fadc771256727b5a369f03d04dc28d486198

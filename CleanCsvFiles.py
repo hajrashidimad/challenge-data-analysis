@@ -7,7 +7,7 @@ class Cleaning:
     def import_from_csv(self):
         """Read csv file and return a DataFrame"""
 
-        df = pd.read_csv('database.csv')
+        df = pd.read_csv('database.csv', index_col=False)
         df = df.astype(object)
         return df
 
@@ -54,6 +54,7 @@ class Cleaning:
         df['terrace_area'] = df['terrace_area'].astype(float)
         df['facades'] = df['facades'].astype(float)
         df['swimming_pool'] = df['swimming_pool'].astype(float)
+        df[df["room"] > 7] = df[df["room"] == df["room"].mean()]
 
         df = df.reset_index(drop= True)
 
@@ -75,4 +76,4 @@ df = Cleaning().import_from_csv()
 df = Cleaning().check_space(df)
 df = Cleaning().delete_duplicate(df)
 df = Cleaning().remplace_NaN_value(df)
-print(df)
+print(df.shape)
