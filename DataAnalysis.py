@@ -133,6 +133,15 @@ class Plot:
         res.plot(kind="bar")
 
         plt.show()
+    
+    def mean_price_by_city(self, df):
+
+        df_city = df.loc[4503:]
+        test = df_city.groupby(['locality']).agg({'price':['mean']})
+        res = test.apply(lambda x: x.sort_values(ascending=False))
+        res.plot(kind="bar")
+
+        plt.show()        
         
         
 df = Cleaning().import_from_csv()
@@ -152,4 +161,5 @@ AnalyseData().describe_of_values(df)
 #Plot().distribution_of_surface(df)
 #Plot().distribution_of_price(df)
 #Plot().state_of_building(df)
-Plot().city_dispertion(df)
+#Plot().city_dispertion(df)
+Plot().mean_price_by_city(df)
