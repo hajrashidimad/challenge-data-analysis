@@ -15,6 +15,8 @@ class AnalyseData:
         print(df.describe())
     
     def sorted_by_city_in_wallonia(self, df):
+        """We use this function to take only wallonia's city...Need DataFrame and return Dataframe"""
+
         df = df[(df['price'] > 1) & (df['price'] < 800000)]
         df = df[(df['locality'] == 'Nivelles') | (df['locality'] == 'Saint-Nicolas') | (df['locality'] == 'Arlon') | 
                 (df['locality'] == 'Tournai') | (df['locality'] == 'Namur') | (df['locality'] == 'Virton') | 
@@ -29,6 +31,8 @@ class AnalyseData:
 class Plot: 
     
     def plot_home_type_by_quantity(self, df):
+        """Give us the possibility to see witch home type is the most commun
+        need Dataframe and show a plot"""
 
         df['quantity'] = 1
         test = df.groupby(['home_type']).agg({'quantity':sum})
@@ -37,7 +41,9 @@ class Plot:
 
         plt.show()
 
-    def plot_surface_of_type_price(self, df): 
+    def plot_surface_of_type_price(self, df):
+        """Give us the possibility to see prices of properties by surface
+        need Dataframe and show a plot""" 
 
         df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'Villa') | (df['home_type'] == 'Maison')]
         df = df[(df['price'] > 1) & (df['price'] < 1000000)]
@@ -52,6 +58,8 @@ class Plot:
         plt.show()
     
     def proportions_of_home_type(self, df):
+        """Give us the possibility to see proportions of home type
+        need Dataframe and show a plot"""
 
         first = (df['home_type']=='Appartement').sum()
         second = (df['home_type']=='Maison').sum()
@@ -62,7 +70,9 @@ class Plot:
         plt.title('Home type proportions')
         plt.show()
     
-    def home_type_price_dispertion(self, df):
+    def home_type_price_dispersion(self, df):
+        """Give us the possibility to see the price dispersion of home type
+        need Dataframe and show a plot"""
         
         df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'Villa') | (df['home_type'] == 'Maison')]
         df = df[(df['price'] > 1) & (df['price'] < 800000)]
@@ -71,7 +81,9 @@ class Plot:
         sns.violinplot(x='home_type', y='price', data=df)
         plt.show()
     
-    def home_type_surface_dispertion(self, df):
+    def home_type_surface_dispersion(self, df):
+        """Give us the possibility to see the surface dispersion of home type
+        need Dataframe and show a plot"""
 
         df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'Villa') | (df['home_type'] == 'Maison')]
         df = df[df['surface_of_land_area'] > 0]
@@ -82,6 +94,9 @@ class Plot:
         plt.show()
     
     def distribution_of_surface(self, df):
+        """Give us the possibility to see the distribution of surface 
+        to be able to know witch one to ignore
+        need Dataframe and show a plot"""
 
         print(df['surface_of_land_area'].mean())
         df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'Villa') | (df['home_type'] == 'Maison')]
@@ -97,6 +112,9 @@ class Plot:
         plt.show()
     
     def distribution_of_price(self, df):
+        """Give us the possibility to see the distribution of price 
+        to be able to know witch one to ignore
+        need Dataframe and show a plot"""
 
         print(df['price'].mean())
         df = df[(df['home_type'] == 'Appartement') | (df['home_type'] == 'Villa') | (df['home_type'] == 'Maison')]
@@ -134,7 +152,7 @@ class Plot:
         plt.xticks(rotation=-45)
         plt.show()
     
-    def city_dispertion(self, df):
+    def city_dispersion(self, df):
         """We had a problem with our csv file, first half of locality was only street name so
         we couldn't find whitch city it was, so we decided to look only to the second half"""
 
@@ -148,6 +166,8 @@ class Plot:
         plt.show()
     
     def mean_price_by_city(self, df):
+        """With this function we will be able to see mean price of all city
+        need Dataframe and show a plot"""
 
         df_city = df.loc[4503:]
         df = df[(df['price'] > 1) & (df['price'] < 800000)]
@@ -158,6 +178,8 @@ class Plot:
         plt.show()
 
     def most_and_less_expensive_municipality_wallonia(self, df):
+        """With this function we will be able to see mean price of all wallonian city
+        need Dataframe and show a plot"""
 
         df = AnalyseData().sorted_by_city_in_wallonia(df)
         test = df.groupby(['locality']).agg({'price':['mean']})
@@ -168,6 +190,8 @@ class Plot:
         plt.show()
     
     def median_price_municipality_wall(self, df):
+        """With this function we will be able to see median price of all wallonian city
+        need Dataframe and show a plot"""
         
         df = AnalyseData().sorted_by_city_in_wallonia(df)
         test = df.groupby(['locality']).agg({'price':['median']})
@@ -178,6 +202,8 @@ class Plot:
         plt.show()
     
     def price_per_square_metre_municipality_wall(self, df):
+        """With this function we will be able to see price per square metre of all wallonian city
+        need Dataframe and show a plot"""
 
         df = AnalyseData().sorted_by_city_in_wallonia(df)
         df = df[(df['surface_of_land_area'] > 1)]
@@ -202,12 +228,12 @@ AnalyseData().describe_of_values(df)
 #Plot().plot_home_type_by_quantity(df)
 #Plot().plot_surface_of_type_price(df)
 #Plot().proportions_of_home_type(df)
-#Plot().home_type_price_dispertion(df)
-#Plot().home_type_surface_dispertion(df)
+#Plot().home_type_price_dispersion(df)
+#Plot().home_type_surface_dispersion(df)
 #Plot().distribution_of_surface(df)
 #Plot().distribution_of_price(df)
 #Plot().state_of_building(df)
-#Plot().city_dispertion(df)
+#Plot().city_dispersion(df)
 #Plot().mean_price_by_city(df)
 #Plot().most_and_less_expensive_municipality_wallonia(df)
 #Plot().median_price_municipality_wall(df)
