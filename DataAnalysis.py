@@ -216,6 +216,35 @@ class Plot:
 
         plt.show()
         
+        
+        #Updated on Saturday
+    def compare_state_of_building_withprice(self,df):
+        
+        df=df[(df['state_of_building']=='Bien neuf') | (df['state_of_building'] == 'Besoin de travaux') | (df['state_of_building'] == 'Rénové')|         (df['state_of_building'] == 'Bon')]
+        df = df[df['price'] > 0]
+        ax = sns.stripplot(x='state_of_building', y='price', data=df, jitter=0.4, size=10 ,  hue='state_of_building' , linewidth=1)
+        plt.title("State of building comparison wiht price", loc="left")
+        fig = plt.gcf()
+
+
+        fig.set_size_inches(12, 8)
+        print(df.dtypes)
+        df=df.sort_values('price')  
+        #updated on Saturday
+    def price_in_flandre(self,df):
+        df_city = df.loc[4503:]
+        df = df[(df['locality'] == 'Hal-Vilvorde')| (df['locality'] == 'Audenarde')| (df['locality'] == 'Hasselt')| (df['locality'] == 'Gand')|         (df['locality'] == 'Alost')| (df['locality'] == 'Ostende')| (df['locality'] == 'Huy')| (df['locality'] == 'Bruges') | (df['locality'] ==         'Anvers')]
+        df = df[df['price'] > 0]
+        ax = sns.stripplot(x='locality', y='price', data=df, jitter=0.4, size=10 ,  hue='locality' , linewidth=1)
+        plt.title("State of building comparison wiht price", loc="left")
+        fig = plt.gcf()
+
+
+        fig.set_size_inches(16, 12)
+        
+        
+        
+        
 df = Cleaning().import_from_csv()
 df = Cleaning().check_space(df)
 df = Cleaning().delete_duplicate(df)
@@ -238,3 +267,4 @@ AnalyseData().describe_of_values(df)
 #Plot().most_and_less_expensive_municipality_wallonia(df)
 #Plot().median_price_municipality_wall(df)
 Plot().price_per_square_metre_municipality_wall(df)
+#Plot().price_in_flandre(df)

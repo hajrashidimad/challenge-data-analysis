@@ -39,6 +39,9 @@ class Cleaning:
         df['subtype'] = df['subtype'].fillna("Not Mentioned")
         df['price'] = df['price'].fillna(-1)
         df['type_of_sale'] = df['type_of_sale'].fillna("Not Mentioned")
+        #These two lines has been updated on Saturday
+        df['state_of_building'] = df['state_of_building'].replace(['AS_NEW'],['Bien neuf'])
+        df['state_of_building'] = df['state_of_building'].replace(['GOOD'],['Bon'])
         df=df.fillna(0)
 
         df['surface_of_land_area'] = df['surface_of_land_area'].astype(float)
