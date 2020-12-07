@@ -79,10 +79,3 @@ class Cleaning:
         if df.shape[1] == 18:
             print('csv file has correct dimension')
         return df
-df = Cleaning().import_from_csv()
-df = Cleaning().check_space(df)
-df = Cleaning().delete_duplicate(df)
-df = Cleaning().remplace_NaN_value(df)
-
-
-
