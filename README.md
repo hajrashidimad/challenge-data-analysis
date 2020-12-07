@@ -1,4 +1,5 @@
 # challenge-data-analysis
+![Analysis](https://www.clearrisk.com/hs-fs/hubfs/data%20analytics%20challenges.jpg?width=765&name=data%20analytics%20challenges.jpg)
 ## About
 Second project of BeCode formation. The goal is to analysis data from different properties.
 
