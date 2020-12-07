@@ -2,7 +2,7 @@ from CleanCsvFiles import Cleaning
 from collections import Counter
 import seaborn as sns
 import matplotlib.pyplot as plt
-from price_information import *
+import pandas as  pd
 
 class AnalyseData:
     def how_many_row_and_columns(self, df):
@@ -120,17 +120,18 @@ class Plot:
 
     def belguim_house_price(self,df):
         df = df.loc[5152:]
-        expensive = []
-        cheap = []
-        number_of_house = Counter(df['locality']) # calculate the number of house on each municipalities
-        number_of_house = dict(number_of_house) # transfer dataframe to dic, to have keys and values
-        for city in number_of_house.keys():
-            city = df[(df["locality"] == f"{city}")]
-            if city["price"].mean() > 150000.0 :
-                expensive.append(city["locality"])
-            else:
-                cheap.append(city["locality"])
-        return print(expensive)
+        info_belguim = Counter(df['locality'])
+        info_belguim = dict(info_belguim)
+        info_belguim = pd.DataFrame.from_dict(info_belguim, orient='index')
+        info_belguim.plot(kind='bar')
+        plt.title("price in belguim")
+        plt.ylabel("price")
+        plt.xlabel("houses")
+        plt.legend(loc="best")
+        plt.show()
+
+
+
 
 
 
