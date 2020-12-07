@@ -46,5 +46,7 @@ Our objective in this project is to be able to find answer question about proper
 ## Team member
 
 [Reza Nasrollahi](https://github.com/RezaNasrollahi), junior AI developer
+
 [Imad Haj Rashid](https://github.com/hajrashidimad), junior AI developer
+
 [Ebubekir Kocadag](https://github.com/EbubekirKocadag), junior AI developer
