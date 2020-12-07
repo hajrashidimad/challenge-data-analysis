@@ -225,6 +225,8 @@ class Plot:
         res.plot(kind="bar")
         plt.legend(['Mean price'])
         plt.title('Mean price by city')
+        fig = plt.gcf()
+        fig.set_size_inches(16, 12)
         plt.show()
 
     def most_and_less_expensive_municipality_wallonia(self, df):

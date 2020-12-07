@@ -2,7 +2,7 @@ from CleanCsvFiles import Cleaning
 from DataAnalysis import AnalyseData, Plot
 
 if __name__ == "__main__":
-    """Calling all needed function"""
+    """Calling all the needed function"""
     
     df = Cleaning().import_from_csv()
     df = Cleaning().check_space(df)
