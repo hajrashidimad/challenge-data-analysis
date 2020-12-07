@@ -27,4 +27,7 @@ if __name__ == "__main__":
     #Plot().median_price_municipality_wall(df)
     #Plot().price_per_square_metre_municipality_wall(df)
     #Plot().price_in_flandre(df)
+    #Plot().most_and_less_expensive_municipality_flandre(df)
+    #Plot().median_price_municipality_flandre(df)
+    #Plot().price_per_square_metre_municipality_flandre(df)
     Plot().belguim_house_price(df)

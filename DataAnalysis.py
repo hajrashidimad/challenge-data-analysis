@@ -28,6 +28,13 @@ class AnalyseData:
                 (df['locality'] == 'Philippeville') | (df['locality'] == 'Mons') | (df['locality'] == 'Charleroi')]
 
         return df
+    
+    def sorted_by_city_in_flandre(self,df):
+        df = df.loc[4503:]
+        df = df[df['price'] > 0]
+        df = df[(df['locality'] == 'Hal-Vilvorde')| (df['locality'] == 'Audenarde')| (df['locality'] == 'Hasselt')| (df['locality'] == 'Gand')|         (df['locality'] == 'Alost')| (df['locality'] == 'Ostende')| (df['locality'] == 'Huy')| (df['locality'] == 'Bruges') | (df['locality'] ==         'Anvers')]
+        
+        return df
 
 
 class Plot:
@@ -261,6 +268,47 @@ class Plot:
         plt.legend(['Mean price per square meter'])
         plt.title('Properties square meter price in Wallonia by city')
         plt.show()
+        
+
+    def most_and_less_expensive_municipality_flandre(self, df):
+        """With this function we will be able to see mean price of all wallonian city
+        need Dataframe and show a plot"""
+
+        df = AnalyseData().sorted_by_city_in_flandre(df)
+        test = df.groupby(['locality']).agg({'price':['mean']})
+        res = test.apply(lambda x: x.sort_values(ascending=False))
+        
+        res.plot(kind="bar")
+
+        plt.show()
+    
+    def median_price_municipality_flandre(self, df):
+        """With this function we will be able to see median price of all wallonian city
+        need Dataframe and show a plot"""
+        
+        df = AnalyseData().sorted_by_city_in_flandre(df)
+        test = df.groupby(['locality']).agg({'price':['median']})
+        res = test.apply(lambda x: x.sort_values(ascending=False))
+        
+        res.plot(kind="bar")
+
+        plt.show()
+    
+    def price_per_square_metre_municipality_flandre(self, df):
+        """With this function we will be able to see price per square metre of all wallonian city
+        need Dataframe and show a plot"""
+
+        df = AnalyseData().sorted_by_city_in_flandre(df)
+        df = df[(df['surface_of_land_area'] > 1)]
+        df['square_meter'] = df['price']/df['surface_of_land_area']
+        print(df.head())
+        test = df.groupby(['locality']).agg({'square_meter':['mean']})
+        res = test.apply(lambda x: x.sort_values(ascending=False))
+        
+        res.plot(kind="bar")
+
+        plt.show()
+        
 
         # Updated on Saturday
     def compare_state_of_building_withprice(self, df):
