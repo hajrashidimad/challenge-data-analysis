@@ -32,7 +32,7 @@ class AnalyseData:
     def sorted_by_city_in_flandre(self,df):
         df = df.loc[4503:]
         df = df[df['price'] > 0]
-        df = df[(df['locality'] == 'Hal-Vilvorde')| (df['locality'] == 'Audenarde')| (df['locality'] == 'Hasselt')| (df['locality'] == 'Gand')|         (df['locality'] == 'Alost')| (df['locality'] == 'Ostende')| (df['locality'] == 'Huy')| (df['locality'] == 'Bruges') | (df['locality'] ==         'Anvers')]
+        df = df[(df['locality'] == 'Hal-Vilvorde')| (df['locality'] == 'Audenarde')| (df['locality'] == 'Hasselt')| (df['locality'] == 'Gand')|         (df['locality'] == 'Alost')| (df['locality'] == 'Ostende') | (df['locality'] == 'Bruges') | (df['locality'] ==         'Anvers')]
         
         return df
 
@@ -91,6 +91,7 @@ class Plot:
         sns.set_style('whitegrid')
         # Violin plot
         sns.violinplot(x='home_type', y='price', data=df)
+        plt.title('Dispersion of price according of home type')
         plt.show()
 
     def home_type_surface_dispersion(self, df):
@@ -105,6 +106,7 @@ class Plot:
         sns.set_style('whitegrid')
         # Violin plot
         sns.violinplot(x='home_type', y='surface_of_land_area', data=df)
+        plt.title('Dispersion of price according of surface')
         plt.show()
 
     def distribution_of_surface(self, df):
@@ -338,3 +340,4 @@ class Plot:
         plt.title("State of building comparison wiht price", loc="left")
         fig = plt.gcf()
         fig.set_size_inches(16, 12)
+        plt.show()
