@@ -73,7 +73,6 @@ class Cleaning:
         if df.shape[1] == 18:
             print('csv file has correct dimension')
         return df
-
     def change_HOUSE_to_Maison(self, df):
         """We see that our csv file has 2 differents name for the same thing (House and Maison),
             so we decide to change House to Maison"""
