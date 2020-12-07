@@ -7,7 +7,7 @@ class Cleaning:
     def import_from_csv(self):
         """Read csv file and return a DataFrame"""
 
-        df = pd.read_csv('database.csv')
+        df = pd.read_csv('database.csv', index_col=False)
         df = df.astype(object)
         return df
 
@@ -57,6 +57,7 @@ class Cleaning:
         df['terrace_area'] = df['terrace_area'].astype(float)
         df['facades'] = df['facades'].astype(float)
         df['swimming_pool'] = df['swimming_pool'].astype(float)
+        df[df["room"] > 7] = df[df["room"] == df["room"].mean()]
 
         df = df.reset_index(drop= True)
 
@@ -79,7 +80,11 @@ df = Cleaning().import_from_csv()
 df = Cleaning().check_space(df)
 df = Cleaning().delete_duplicate(df)
 df = Cleaning().remplace_NaN_value(df)
+<<<<<<< HEAD
 print(df)
+=======
+print(df.shape)
+>>>>>>> f89c312fb15976e2ace2edd5110d8be99522e539
 =======
     
     def change_HOUSE_to_Maison(self, df):
@@ -89,4 +94,8 @@ print(df)
         df['home_type'] = df['home_type'].replace(['HOUSE'], ['Maison'])
 
         return df
+<<<<<<< HEAD
 >>>>>>> 3eb01daf24179ecaf333aef26bd95d5f01710c45
+=======
+>>>>>>> 0ab11dab038bd2408d8f624fd9a5c3252c732b8a
+>>>>>>> f89c312fb15976e2ace2edd5110d8be99522e539

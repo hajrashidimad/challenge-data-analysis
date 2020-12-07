@@ -1,15 +1,8 @@
-
-import matplotlib.pyplot as plt
-import seaborn as sns
 from CleanCsvFiles import Cleaning
-
-
-def plot_price_room(self, df):
-    df = df[(df["price"] > 1) & (df["room"] > 1)]
-    cor = df.corr()
-    ax = sns.heatmap(cor, center=0)
-    plt.show()
-
+from collections import Counter
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as  pd
 
 class AnalyseData:
     def how_many_row_and_columns(self, df):
@@ -166,6 +159,60 @@ class Plot:
                        ]
 
         df = df[df['state_of_building'] != '0']
+    def plot_price_room(self,df):
+        df = df[(df["price"] > 1) & (df["room"] > 1)]
+        cor = df.corr()
+        ax = sns.heatmap(cor, center=0)
+        plt.show()
+    
+    def plot_price_area(self, df):
+        df_city = df.loc[4503:]
+        df = df[(df["price"] > 0) & (df["facades"] > 1)]
+        corr = df.corr()
+        ax = sns.heatmap(corr)
+        try:
+            ax = sns.heatmap(df, annot=True, fmt="d")
+
+        except ValueError:
+            pass
+        plt.show()
+
+    def belguim_house_price(self,df):
+        df = df.loc[5152:]
+        info_belguim = Counter(df['locality'])
+        info_belguim = dict(info_belguim)
+        info_belguim = pd.DataFrame.from_dict(info_belguim, orient='index')
+        info_belguim.plot(kind='bar', , label='The price')
+        plt.title("price in belguim")
+        plt.ylabel("price")
+        plt.xlabel("houses")
+        plt.legend(loc="best")
+        plt.show()
+    def plot_price_room(self, df):
+        df = df[(df["price"] > 1) & (df["room"] > 1)]
+        cor = df.corr()
+        ax = sns.heatmap(cor, center=0)
+        plt.show()
+        
+    def state_of_building(self,df):
+        type_colors = ['#78C850', 
+                    '#F08030',  
+                    '#6890F0',  
+                    '#A8B820',  
+                    '#A8A878',  
+                    '#A040A0', 
+                    '#F8D030',  
+                    '#E0C068',  
+                    '#EE99AC',  
+                    '#C03028',  
+                    '#F85888',  
+                    '#B8A038',  
+                    '#705898',  
+                    '#98D8D8',  
+                    '#7038F8',  
+                   ]
+
+        df=df[df['state_of_building'] != '0']
         sns.countplot(x='state_of_building', data=df, palette=type_colors)
         plt.xticks(rotation=-45)
         plt.show()
@@ -284,3 +331,21 @@ AnalyseData().describe_of_values(df)
 # Plot().home_type_surface_dispertion(df)
 # Plot().distribution_of_surface(df)
 # Plot().distribution_of_price(df)
+#Plot().plot_home_type_by_quantity(df)
+#Plot().plot_surface_of_type_price(df)
+#Plot().proportions_of_home_type(df)
+#Plot().home_type_price_dispersion(df)
+#Plot().home_type_surface_dispersion(df)
+#Plot().distribution_of_surface(df)
+#Plot().distribution_of_price(df)
+# Plot().plot_price_room(df)
+# Plot().plot_price_area(df)
+# Plot().locality_price(df)
+# Plot().belguim_house_price(df) # the price in belguim
+#Plot().state_of_building(df)
+#Plot().city_dispersion(df)
+#Plot().mean_price_by_city(df)
+#Plot().most_and_less_expensive_municipality_wallonia(df)
+#Plot().median_price_municipality_wall(df)
+# Plot().price_per_square_metre_municipality_wall(df)
+#Plot().price_in_flandre(df)
