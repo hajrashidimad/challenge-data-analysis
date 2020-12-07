@@ -139,35 +139,6 @@ class Plot:
         plt.axis('equal')
         plt.title('Price distribution')
         plt.show()
-<<<<<<< HEAD
-
-    def state_of_building(self, df):
-        type_colors = ['#78C850',
-                       '#F08030',
-                       '#6890F0',
-                       '#A8B820',
-                       '#A8A878',
-                       '#A040A0',
-                       '#F8D030',
-                       '#E0C068',
-                       '#EE99AC',
-                       '#C03028',
-                       '#F85888',
-                       '#B8A038',
-                       '#705898',
-                       '#98D8D8',
-                       '#7038F8',
-                       ]
-
-        df = df[df['state_of_building'] != '0']
-=======
-        
->>>>>>> refs/remotes/origin/main
-    def plot_price_room(self,df):
-        df = df[(df["price"] > 1) & (df["room"] > 1)]
-        cor = df.corr()
-        ax = sns.heatmap(cor, center=0)
-        plt.show()
     
     def plot_price_area(self, df):
         df_city = df.loc[4503:]
@@ -186,7 +157,7 @@ class Plot:
         info_belguim = Counter(df['locality'])
         info_belguim = dict(info_belguim)
         info_belguim = pd.DataFrame.from_dict(info_belguim, orient='index')
-        info_belguim.plot(kind='bar', , label='The price')
+        info_belguim.plot(kind='bar',label='The price')
         plt.title("price in belguim")
         plt.ylabel("price")
         plt.xlabel("houses")
@@ -316,8 +287,6 @@ class Plot:
                            jitter=0.4, size=10,  hue='locality', linewidth=1)
         plt.title("State of building comparison wiht price", loc="left")
         fig = plt.gcf()
-
-<<<<<<< HEAD
         fig.set_size_inches(16, 12)
 
 
@@ -354,6 +323,3 @@ AnalyseData().describe_of_values(df)
 #Plot().median_price_municipality_wall(df)
 # Plot().price_per_square_metre_municipality_wall(df)
 #Plot().price_in_flandre(df)
-=======
-        fig.set_size_inches(16, 12)
->>>>>>> refs/remotes/origin/main
