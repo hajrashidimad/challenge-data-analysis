@@ -40,6 +40,9 @@ class Cleaning:
         df['subtype'] = df['subtype'].fillna("Not Mentioned")
         df['price'] = df['price'].fillna(-1)
         df['type_of_sale'] = df['type_of_sale'].fillna("Not Mentioned")
+        #These two lines has been updated on Saturday
+        df['state_of_building'] = df['state_of_building'].replace(['AS_NEW'],['Bien neuf'])
+        df['state_of_building'] = df['state_of_building'].replace(['GOOD'],['Bon'])
         df=df.fillna(0)
 
         df['surface_of_land_area'] = df['surface_of_land_area'].astype(float)
@@ -70,6 +73,7 @@ class Cleaning:
         if df.shape[1] == 18:
             print('csv file has correct dimension')
         return df
+<<<<<<< HEAD
 
 
 df = Cleaning().import_from_csv()
@@ -77,3 +81,13 @@ df = Cleaning().check_space(df)
 df = Cleaning().delete_duplicate(df)
 df = Cleaning().remplace_NaN_value(df)
 print(df.shape)
+=======
+    
+    def change_HOUSE_to_Maison(self, df):
+        """We see that our csv file has 2 differents name for the same thing (House and Maison),
+            so we decide to change House to Maison"""
+
+        df['home_type'] = df['home_type'].replace(['HOUSE'], ['Maison'])
+
+        return df
+>>>>>>> 0ab11dab038bd2408d8f624fd9a5c3252c732b8a
