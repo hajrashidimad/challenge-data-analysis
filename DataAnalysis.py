@@ -1,7 +1,8 @@
 from CleanCsvFiles import Cleaning
-
+from collections import Counter
 import seaborn as sns
 import matplotlib.pyplot as plt
+import pandas as  pd
 
 class AnalyseData:
     def how_many_row_and_columns(self, df):
@@ -128,6 +129,36 @@ class Plot:
         plt.axis('equal')
         plt.title('Price distribution')
         plt.show()
+
+    def plot_price_room(self,df):
+        df = df[(df["price"] > 1) & (df["room"] > 1)]
+        cor = df.corr()
+        ax = sns.heatmap(cor, center=0)
+        plt.show()
+    
+    def plot_price_area(self, df):
+        df_city = df.loc[4503:]
+        df = df[(df["price"] > 0) & (df["facades"] > 1)]
+        corr = df.corr()
+        ax = sns.heatmap(corr)
+        try:
+            ax = sns.heatmap(df, annot=True, fmt="d")
+
+        except ValueError:
+            pass
+        plt.show()
+
+    def belguim_house_price(self,df):
+        df = df.loc[5152:]
+        info_belguim = Counter(df['locality'])
+        info_belguim = dict(info_belguim)
+        info_belguim = pd.DataFrame.from_dict(info_belguim, orient='index')
+        info_belguim.plot(kind='bar')
+        plt.title("price in belguim")
+        plt.ylabel("price")
+        plt.xlabel("houses")
+        plt.legend(loc="best")
+        plt.show()
         
     def state_of_building(self,df):
         type_colors = ['#78C850', 
@@ -248,4 +279,3 @@ class Plot:
 
 
         fig.set_size_inches(16, 12)
-        

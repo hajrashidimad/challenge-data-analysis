@@ -7,7 +7,7 @@ class Cleaning:
     def import_from_csv(self):
         """Read csv file and return a DataFrame"""
 
-        df = pd.read_csv('/Users/ebu/Desktop/becode_projects/Thomas/challenge-data-analysis/challenge-data-analysis/database.csv')
+        df = pd.read_csv('database.csv', index_col=False)
         df = df.astype(object)
         return df
 
@@ -25,6 +25,7 @@ class Cleaning:
     def delete_duplicate(self, df):
         """Delete all duplicated row"""
         df = df.drop_duplicates()
+        print(df.shape)
         return df
     
     def remplace_NaN_value(self, df):
@@ -56,6 +57,7 @@ class Cleaning:
         df['terrace_area'] = df['terrace_area'].astype(float)
         df['facades'] = df['facades'].astype(float)
         df['swimming_pool'] = df['swimming_pool'].astype(float)
+        df[df["room"] > 7] = df[df["room"] == df["room"].mean()]
 
         df = df.reset_index(drop= True)
 
@@ -71,7 +73,7 @@ class Cleaning:
         if df.shape[1] == 18:
             print('csv file has correct dimension')
         return df
-    
+
     def change_HOUSE_to_Maison(self, df):
         """We see that our csv file has 2 differents name for the same thing (House and Maison),
             so we decide to change House to Maison"""
