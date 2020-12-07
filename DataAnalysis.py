@@ -139,6 +139,7 @@ class Plot:
         plt.axis('equal')
         plt.title('Price distribution')
         plt.show()
+<<<<<<< HEAD
 
     def state_of_building(self, df):
         type_colors = ['#78C850',
@@ -159,6 +160,9 @@ class Plot:
                        ]
 
         df = df[df['state_of_building'] != '0']
+=======
+        
+>>>>>>> refs/remotes/origin/main
     def plot_price_room(self,df):
         df = df[(df["price"] > 1) & (df["room"] > 1)]
         cor = df.corr()
@@ -313,6 +317,7 @@ class Plot:
         plt.title("State of building comparison wiht price", loc="left")
         fig = plt.gcf()
 
+<<<<<<< HEAD
         fig.set_size_inches(16, 12)
 
 
@@ -349,3 +354,6 @@ AnalyseData().describe_of_values(df)
 #Plot().median_price_municipality_wall(df)
 # Plot().price_per_square_metre_municipality_wall(df)
 #Plot().price_in_flandre(df)
+=======
+        fig.set_size_inches(16, 12)
+>>>>>>> refs/remotes/origin/main

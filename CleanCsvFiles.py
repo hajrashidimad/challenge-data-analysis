@@ -74,6 +74,7 @@ class Cleaning:
             print('csv file has correct dimension')
         return df
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 df = Cleaning().import_from_csv()
@@ -87,6 +88,8 @@ print(df.shape)
 >>>>>>> f89c312fb15976e2ace2edd5110d8be99522e539
 =======
     
+=======
+>>>>>>> refs/remotes/origin/main
     def change_HOUSE_to_Maison(self, df):
         """We see that our csv file has 2 differents name for the same thing (House and Maison),
             so we decide to change House to Maison"""
@@ -95,7 +98,10 @@ print(df.shape)
 
         return df
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 3eb01daf24179ecaf333aef26bd95d5f01710c45
 =======
 >>>>>>> 0ab11dab038bd2408d8f624fd9a5c3252c732b8a
 >>>>>>> f89c312fb15976e2ace2edd5110d8be99522e539
+=======
+>>>>>>> refs/remotes/origin/main
