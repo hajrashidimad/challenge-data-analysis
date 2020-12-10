@@ -315,7 +315,7 @@ AnalyseData().describe_of_values(df)
 # Plot().plot_price_room(df)
 # Plot().plot_price_area(df)
 # Plot().locality_price(df)
-# Plot().belguim_house_price(df) # the price in belguim
+Plot().belguim_house_price(df) # the price in belguim
 #Plot().state_of_building(df)
 #Plot().city_dispersion(df)
 #Plot().mean_price_by_city(df)
