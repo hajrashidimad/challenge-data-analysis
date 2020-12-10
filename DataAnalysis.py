@@ -2,7 +2,8 @@ from CleanCsvFiles import Cleaning
 from collections import Counter
 import seaborn as sns
 import matplotlib.pyplot as plt
-import pandas as  pd
+import pandas as pd
+
 
 class AnalyseData:
     def how_many_row_and_columns(self, df):
@@ -28,12 +29,13 @@ class AnalyseData:
                 (df['locality'] == 'Philippeville') | (df['locality'] == 'Mons') | (df['locality'] == 'Charleroi')]
 
         return df
-    
-    def sorted_by_city_in_flandre(self,df):
+
+    def sorted_by_city_in_flandre(self, df):
         df = df.loc[4503:]
         df = df[df['price'] > 0]
-        df = df[(df['locality'] == 'Hal-Vilvorde')| (df['locality'] == 'Audenarde')| (df['locality'] == 'Hasselt')| (df['locality'] == 'Gand')|         (df['locality'] == 'Alost')| (df['locality'] == 'Ostende') | (df['locality'] == 'Bruges') | (df['locality'] ==         'Anvers')]
-        
+        df = df[(df['locality'] == 'Hal-Vilvorde') | (df['locality'] == 'Audenarde') | (df['locality'] == 'Hasselt') | (df['locality'] == 'Gand')
+                | (df['locality'] == 'Alost') | (df['locality'] == 'Ostende') | (df['locality'] == 'Bruges') | (df['locality'] == 'Anvers')]
+
         return df
 
 
@@ -148,7 +150,7 @@ class Plot:
         plt.axis('equal')
         plt.title('Price distribution')
         plt.show()
-    
+
     def plot_price_area(self, df):
         df_city = df.loc[4503:]
         df = df[(df["price"] > 0) & (df["facades"] > 1)]
@@ -161,42 +163,43 @@ class Plot:
             pass
         plt.show()
 
-    def belguim_house_price(self,df):
+    def belguim_house_price(self, df):
         df = df.loc[5152:]
         info_belguim = Counter(df['locality'])
         info_belguim = dict(info_belguim)
         info_belguim = pd.DataFrame.from_dict(info_belguim, orient='index')
-        info_belguim.plot(kind='bar',label='The price')
+        info_belguim.plot(kind='bar', label='The price')
         plt.title("price in belguim")
         plt.ylabel("price")
         plt.xlabel("houses")
         plt.legend(loc="best")
         plt.show()
+
     def plot_price_room(self, df):
         df = df[(df["price"] > 1) & (df["room"] > 1)]
         cor = df.corr()
         ax = sns.heatmap(cor, center=0)
         plt.show()
-        
-    def state_of_building(self,df):
-        type_colors = ['#78C850', 
-                    '#F08030',  
-                    '#6890F0',  
-                    '#A8B820',  
-                    '#A8A878',  
-                    '#A040A0', 
-                    '#F8D030',  
-                    '#E0C068',  
-                    '#EE99AC',  
-                    '#C03028',  
-                    '#F85888',  
-                    '#B8A038',  
-                    '#705898',  
-                    '#98D8D8',  
-                    '#7038F8',  
-                   ]
 
-        df=df[df['state_of_building'] != '0']
+    def state_of_building(self, df):
+        type_colors = ['#78C850',
+                       '#F08030',
+                       '#6890F0',
+                       '#A8B820',
+                       '#A8A878',
+                       '#A040A0',
+                       '#F8D030',
+                       '#E0C068',
+                       '#EE99AC',
+                       '#C03028',
+                       '#F85888',
+                       '#B8A038',
+                       '#705898',
+                       '#98D8D8',
+                       '#7038F8',
+                       ]
+
+        df = df[df['state_of_building'] != '0']
         sns.countplot(x='state_of_building', data=df, palette=type_colors)
         plt.xticks(rotation=-45)
         plt.show()
@@ -272,32 +275,31 @@ class Plot:
         plt.legend(['Mean price per square meter'])
         plt.title('Properties square meter price in Wallonia by city')
         plt.show()
-        
 
     def most_and_less_expensive_municipality_flandre(self, df):
         """With this function we will be able to see mean price of all wallonian city
         need Dataframe and show a plot"""
 
         df = AnalyseData().sorted_by_city_in_flandre(df)
-        test = df.groupby(['locality']).agg({'price':['mean']})
+        test = df.groupby(['locality']).agg({'price': ['mean']})
         res = test.apply(lambda x: x.sort_values(ascending=False))
-        
+
         res.plot(kind="bar")
 
         plt.show()
-    
+
     def median_price_municipality_flandre(self, df):
         """With this function we will be able to see median price of all wallonian city
         need Dataframe and show a plot"""
-        
+
         df = AnalyseData().sorted_by_city_in_flandre(df)
-        test = df.groupby(['locality']).agg({'price':['median']})
+        test = df.groupby(['locality']).agg({'price': ['median']})
         res = test.apply(lambda x: x.sort_values(ascending=False))
-        
+
         res.plot(kind="bar")
 
         plt.show()
-    
+
     def price_per_square_metre_municipality_flandre(self, df):
         """With this function we will be able to see price per square metre of all wallonian city
         need Dataframe and show a plot"""
@@ -306,15 +308,15 @@ class Plot:
         df = df[(df['surface_of_land_area'] > 1)]
         df['square_meter'] = df['price']/df['surface_of_land_area']
         print(df.head())
-        test = df.groupby(['locality']).agg({'square_meter':['mean']})
+        test = df.groupby(['locality']).agg({'square_meter': ['mean']})
         res = test.apply(lambda x: x.sort_values(ascending=False))
-        
+
         res.plot(kind="bar")
 
         plt.show()
-        
 
         # Updated on Saturday
+
     def compare_state_of_building_withprice(self, df):
 
         df = df[(df['state_of_building'] == 'Bien neuf') | (df['state_of_building'] == 'Besoin de travaux') | (
@@ -340,7 +342,6 @@ class Plot:
         plt.title("State of building comparison wiht price", loc="left")
         fig = plt.gcf()
         fig.set_size_inches(16, 12)
-<<<<<<< HEAD
 
 
 df = Cleaning().import_from_csv()
@@ -358,24 +359,22 @@ AnalyseData().describe_of_values(df)
 # Plot().home_type_surface_dispertion(df)
 # Plot().distribution_of_surface(df)
 # Plot().distribution_of_price(df)
-#Plot().plot_home_type_by_quantity(df)
-#Plot().plot_surface_of_type_price(df)
-#Plot().proportions_of_home_type(df)
-#Plot().home_type_price_dispersion(df)
-#Plot().home_type_surface_dispersion(df)
-#Plot().distribution_of_surface(df)
-#Plot().distribution_of_price(df)
+# Plot().plot_home_type_by_quantity(df)
+# Plot().plot_surface_of_type_price(df)
+# Plot().proportions_of_home_type(df)
+# Plot().home_type_price_dispersion(df)
+# Plot().home_type_surface_dispersion(df)
+# Plot().distribution_of_surface(df)
+# Plot().distribution_of_price(df)
 # Plot().plot_price_room(df)
 # Plot().plot_price_area(df)
 # Plot().locality_price(df)
-Plot().belguim_house_price(df) # the price in belguim
-#Plot().state_of_building(df)
-#Plot().city_dispersion(df)
-#Plot().mean_price_by_city(df)
-#Plot().most_and_less_expensive_municipality_wallonia(df)
-#Plot().median_price_municipality_wall(df)
+Plot().belguim_house_price(df)  # the price in belguim
+# Plot().state_of_building(df)
+# Plot().city_dispersion(df)
+# Plot().mean_price_by_city(df)
+# Plot().most_and_less_expensive_municipality_wallonia(df)
+# Plot().median_price_municipality_wall(df)
 # Plot().price_per_square_metre_municipality_wall(df)
-#Plot().price_in_flandre(df)
-=======
-        plt.show()
->>>>>>> 31290faeba7500930a5038867f15d6ad0b402f32
+# Plot().price_in_flandre(df)
+plt.show()
